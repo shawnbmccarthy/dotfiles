@@ -1,0 +1,15 @@
+[SddmGreeterTheme]
+Name=sddm-drwho-theme
+Description=sddm-drwho-theme
+Author=sbm
+Website=https://github.com/brokenrobotz
+License=MIT
+Type=sddm-theme
+Version=1.0
+ConfigFile=Themes/dalek.conf
+Screenshot=
+MainScript=Main.qml
+TranslationsDirectory=
+Theme-Id=sddm-drwho-theme
+Theme-API=2.0
+QtVersion=6

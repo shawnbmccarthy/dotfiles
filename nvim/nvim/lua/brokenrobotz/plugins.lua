@@ -1,0 +1,33 @@
+vim.pack.add({
+  "https://github.com/catppuccin/nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
+  "https://github.com/nvim-lualine/lualine.nvim",
+  "https://github.com/nvim-mini/mini.nvim",
+  "https://github.com/j-hui/fidget.nvim",
+  "https://github.com/catgoose/nvim-colorizer.lua",
+  "https://github.com/akinsho/bufferline.nvim",
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/nvim-telescope/telescope-file-browser.nvim",
+  "https://github.com/chip/telescope-software-licenses.nvim",
+  "https://github.com/crispgm/telescope-heading.nvim",
+  "https://github.com/folke/trouble.nvim",
+  "https://github.com/lukas-reineke/indent-blankline.nvim",
+  "https://github.com/3rd/image.nvim",
+  "https://github.com/MunifTanjim/nui.nvim",
+  "https://github.com/folke/which-key.nvim",
+  "https://github.com/ntpeters/vim-better-whitespace",
+  "https://github.com/doctorfree/cheatsheet.nvim",
+  {
+    src = "https://github.com/nvim-neo-tree/neo-tree.nvim",
+    version = vim.version.range("3"),
+  },
+  {
+    src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+    run = "make",
+  },
+  "https://github.com/nvim-telescope/telescope.nvim",
+  {
+    src = "https://github.com/ThePrimeagen/harpoon",
+    version = "harpoon2",
+  },
+})

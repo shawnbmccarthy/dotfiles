@@ -1,0 +1,7 @@
+.vscode/
+.settings/
+.env
+.venv
+venv
+sddm-drwho-theme/Backgrounds/*
+!sddm-drwho-theme/Backgrounds/placeholder.txt
