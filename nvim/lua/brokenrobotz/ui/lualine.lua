@@ -1,11 +1,4 @@
 require("lualine").setup({
-  options = {
-    theme = "catppuccin-nvim",
-    icons_enabled = true,
-    global_status = true,
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
-  },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
@@ -26,5 +19,5 @@ require("lualine").setup({
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },
-  extensions = { "fzf", "lazy", "mason", "neo-tree", "quickfix", "trouble" },
+  extensions = { "fzf", "neo-tree", "quickfix", "trouble" },
 })

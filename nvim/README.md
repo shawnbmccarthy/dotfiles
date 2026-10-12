@@ -16,6 +16,3 @@
 
 ## reference
 1. https://dotfiles.substack.com/p/whats-new-in-neovim-012
-
-## TODO
-lots, this is a revamp of my old confs (no longer exist - oh boy)

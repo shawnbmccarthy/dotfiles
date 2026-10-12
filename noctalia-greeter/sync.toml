@@ -1,0 +1,62 @@
+# noctalia-greeter sync.toml (UI + Sync; not managed by Nix)
+# [session] last, [session.power] suspend/reboot/shutdown, [[session.actions]] action/command/label/glyph
+# [appearance] scheme, theme_mode, corner_radius_scale, font_family
+# [appearance.palette] full color role table, [appearance.wallpaper]/[appearance.wallpapers.<connector>]
+# [output] layout/transforms
+
+[appearance]
+corner_radius_scale = 0.5
+font_family = "FiraCode Nerd Font Mono"
+scheme = "Tokyo-Night"
+theme_mode = "dark"
+hide_logo = true
+
+    [appearance.palette]
+    error = "#F7768E"
+    hover = "#9ECE6A"
+    on_error = "#16161E"
+    on_hover = "#16161E"
+    on_primary = "#16161E"
+    on_secondary = "#16161E"
+    on_surface = "#C0CAF5"
+    on_surface_variant = "#9AA5CE"
+    on_tertiary = "#16161E"
+    outline = "#3D4355"
+    primary = "#7AA2F7"
+    secondary = "#BB9AF7"
+    shadow = "#15161E"
+    surface = "#1A1B26"
+    surface_variant = "#24283B"
+    tertiary = "#9ECE6A"
+
+    [appearance.wallpaper]
+    fill_mode = "crop"
+    path = "/var/lib/noctalia-greeter/wallpaper.png"
+
+    [appearance.wallpapers.eDP-1]
+    fill_mode = "crop"
+    path = "/var/lib/noctalia-greeter/wallpaper-eDP-1.png"
+
+[output]
+transforms = "eDP-1:normal"
+
+[session]
+last = "Niri"
+
+    [[session.actions]]
+    action = "lock"
+
+    [[session.actions]]
+    action = "logout"
+
+    [[session.actions]]
+    action = "lock_and_suspend"
+
+    [[session.actions]]
+    action = "reboot"
+
+    [[session.actions]]
+    action = "shutdown"
+
+[auth]
+allow_empty_password = true

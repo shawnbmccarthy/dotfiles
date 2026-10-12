@@ -4,15 +4,17 @@ vim.env.LC_ALL = "en_US.UTF-8"
 -- lua/brokenrobotz/set.lua
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.mardown_recommended_style = 0
-vim.g.autoformat = true
--- providers
+vim.g.markdown_recommended_style = 0
+vim.g.autoformat = false
+
+-- disable ruby & perl providers
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
 -- python provider
 vim.g.python3_host_prog = "/usr/bin/python3"
 
+-- dotenv filetype
 vim.filetype.add({
   extension = {
     env = "dotenv",

@@ -10,9 +10,14 @@ require("fidget").setup({
     ignore = {},
     display = {
       done_icon = "✔",
-      progress_icons = { "dots" },
+      progress_icon = { "dots" },
+      skip_history = false,
     },
+
+  },
+  notification = {
+    filter = vim.log.levels.INFO,
+    override_vim_notify = true,
+    history = 128,
   },
 })
-
-vim.notify = require("fidget").notify

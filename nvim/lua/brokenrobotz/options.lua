@@ -13,12 +13,14 @@ opt.wrap = false           -- do not wrap lines
 opt.scrolloff = 10         -- keep 10 lines above/below cursor
 opt.sidescrolloff = 8      -- keep 8 columns left/right of cursor
 
+-- end of line
+opt.fixendofline = false
+
 -- indentation
 opt.tabstop = 2       -- tab width
 opt.shiftwidth = 2    -- indent width
 opt.softtabstop = 2   -- soft tab stop
 opt.expandtab = true  -- use spaces instead of tabs
-opt.autoindent = true -- copy indent from current line
 opt.smartindent = true
 
 -- search settings
@@ -26,19 +28,15 @@ opt.smartindent = true
 -- it only finds exact matches
 opt.ignorecase = true -- case insensitive search
 opt.smartcase = true  -- case sensitive if uppercase in search
-opt.hlsearch = true   -- do not highlight search results
-opt.incsearch = true  -- show matches as you type
+opt.hlsearch = true   -- highlight search results
 
 -- visual settings
-opt.termguicolors = true -- enable 24-bit colors
 opt.signcolumn = "yes"   -- always show sign column
 opt.showmatch = true     -- highlight matching brackets
 opt.matchtime = 2        -- how long to show matching bracket
-opt.cmdheight = 1        -- command line height
 opt.showmode = false     -- do not show mode in command line
 opt.pumheight = 10       -- popup menu height
 opt.pumblend = 10        -- popup menu transparency
-opt.winblend = 0         -- floating window transparency
 opt.completeopt = "menu,menuone,noselect,popup"
 vim.o.autocomplete = true
 opt.conceallevel = 2      -- hide * markup for bold & italic, but not markers with substitutions
@@ -50,39 +48,33 @@ opt.virtualedit = "block" -- allow cursor to move where there is no text in visu
 opt.winminwidth = 5       -- minimum window width
 
 -- file handling
-opt.backup = false      -- do not create backup files
 opt.writebackup = false -- do not create backup before writing
 opt.swapfile = false    -- do not create swap files
 opt.undofile = true     -- persistent undo
--- opt.undodir = vim.fn.expand("~/.vim/undodir")
 opt.updatetime = 250    -- faster completion
 
 -- lower than default (1000) to quickly trigger which-key
-opt.timeoutlen = vim.g.vscode and 1000 or 300
+opt.timeoutlen = 300 -- lower than default (1000) to quickly trigger which-key
 opt.ttimeoutlen = 0  -- key code timeout
-opt.autoread = true  -- auto reload files changed outside vim
 opt.autowrite = true -- autosave
 
 -- behavior settings
-opt.hidden = true           -- allow for hidden buffers
-opt.errorbells = false      -- no error bells
-opt.backspace = "indent,eol,start"
-opt.autochdir = false       -- do not auto change directory
 opt.iskeyword:append("-")   -- treat dash as part of word
 opt.path:append("**")       -- include subdirectories in search
 opt.selection = "exclusive" -- selection behavior
 opt.mouse = "a"             -- enable mouse support
+
+-- https://neovim.io/doc/user/provider/#provider-clipboard
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
-opt.modifiable = true       -- allow buffer modifications
-opt.encoding = "utf-8"      -- set encoding
 
 -- folding settings
 opt.smoothscroll = true
-vim.wo.foldmethod = "expr"
 opt.foldlevel = 99 -- all folds open
 opt.formatoptions = "jcroqlnt"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- split behavior
 opt.splitbelow = true -- horizontal splits go below
@@ -90,7 +82,6 @@ opt.splitright = true -- vertical splits go right
 opt.splitkeep = "screen"
 
 -- command-line completion
-opt.wildmenu = true
 opt.wildmode = "longest:full,full"
 opt.wildignore:append({ "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
 
@@ -106,5 +97,11 @@ opt.laststatus = 3    -- global statusline
 opt.list = false
 opt.linebreak = true  -- wrap lines a convient points
 opt.shiftround = true -- round indent
-opt.shiftwidth = 2    -- size of indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = vim.api.nvim_create_augroup("autocompletion-sanitizer", { clear = true }),
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype ~= "" then vim.bo[ev.buf].autocomplete = false end
+  end,
+})

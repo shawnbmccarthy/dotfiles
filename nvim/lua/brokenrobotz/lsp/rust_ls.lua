@@ -1,8 +1,9 @@
 vim.lsp.config(
   "rust_ls",
   {
-    cmd = {"rust-analyzer"},
-    filetypes = {"rust"},
+    cmd = { "rust-analyzer" },
+    filetypes = { "rust" },
+    root_markers = {"Cargo.toml", ".git"},
     settings = {
       ["rust-analyzer"] = {
         cargo = {
@@ -13,6 +14,10 @@ vim.lsp.config(
           command = "clippy",
           features = "all",
         },
+        diagnostics = {
+          enable = true,
+          refreshSupport = false,
+        }
       }
     }
   }

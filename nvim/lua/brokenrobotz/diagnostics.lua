@@ -8,19 +8,18 @@ local palette = {
   hint = "#1E2E1E",
 }
 
--- highlight groups
-vim.api.nvim_set_hl(0, "DiagnosticErrorLine", { bg = palette.err, blend = 20 })
-vim.api.nvim_set_hl(0, "DiagnosticWarnLine", { bg = palette.warn, blend = 15 })
-vim.api.nvim_set_hl(0, "DiagnosticInfoLine", { bg = palette.info, blend = 10 })
-vim.api.nvim_set_hl(0, "DiagnosticHintLine", { bg = palette.hint, blend = 10 })
+local function set_diag_hl()
+  -- highlight groups
+  vim.api.nvim_set_hl(0, "DiagnosticErrorLine", { bg = palette.err, blend = 20 })
+  vim.api.nvim_set_hl(0, "DiagnosticWarnLine", { bg = palette.warn, blend = 15 })
+  vim.api.nvim_set_hl(0, "DiagnosticInfoLine", { bg = palette.info, blend = 10 })
+  vim.api.nvim_set_hl(0, "DiagnosticHintLine", { bg = palette.hint, blend = 10 })
+end
 
-vim.api.nvim_set_hl(0, "DapBreakpointSign", { fg = "#FF0000", bg = nil, bold = true })
-
-vim.fn.sign_define("DapBreakpoint", {
-  text = "●", -- a large dot; change as desired
-  texthl = "DapBreakpointSign", -- the highlight group you just defined
-  linehl = "", -- no full-line highlight
-  numhl = "", -- no number-column highlight
+set_diag_hl()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("brokenrobotz-diag-hl", {clear = true}),
+  callback = set_diag_hl,
 })
 
 local sev = vim.diagnostic.severity
@@ -42,18 +41,17 @@ vim.diagnostic.config({
       [sev.INFO] = " ",
       [sev.HINT] = "󰌵 ",
     },
+    linehl = {
+      [sev.ERROR] = "DiagnosticErrorLine",
+      [sev.WARN] = "DiagnosticWarnLine",
+      [sev.INFO] = "DiagnosticInfoLine",
+      [sev.HINT] = "DiagnosticHintLine",
+    },
   },
   virtual_text = {
     spacing = 4,
     source = "if_many",
     prefix = "●",
-  },
-  -- NEW in 0.11 — dim whole line
-  linehl = {
-    [sev.ERROR] = "DiagnosticErrorLine",
-    [sev.WARN] = "DiagnosticWarnLine",
-    [sev.INFO] = "DiagnosticInfoLine",
-    [sev.HINT] = "DiagnosticHintLine",
   },
 })
 

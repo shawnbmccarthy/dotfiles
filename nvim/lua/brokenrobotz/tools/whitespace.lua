@@ -11,7 +11,8 @@ vim.g.better_whitespace_filetypes_blacklist = {
   "markdown",
 }
 
-vim.keymap.set("n", "<leader>ws", "<cmd>StripWhitespace<cr>", {
+-- set keymap to sit in the code/lsp space
+vim.keymap.set("n", "<leader>cs", "<cmd>StripWhitespace<cr>", {
   desc = "strip trailing whitespace",
   silent = true,
 })

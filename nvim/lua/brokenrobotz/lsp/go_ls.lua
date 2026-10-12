@@ -1,4 +1,15 @@
+vim.filetype.add({
+  extension = { gotmpl = "gotmpl" },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "gotmpl",
+    [".*/templates/.*%.yaml"] = "gotmpl",
+  },
+})
+
 vim.lsp.config("gopls", {
+  cmd = {"gopls"},
+  filetypes = {"go", "gomod", "gowork", "gotmpl"},
+  root_markers = {"go.work", "go.mod", ".git"},
   settings = {
     gopls = {
       staticcheck = true,

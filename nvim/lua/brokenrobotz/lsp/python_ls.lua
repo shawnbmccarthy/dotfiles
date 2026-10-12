@@ -37,6 +37,7 @@ vim.lsp.config("ruff", {
       lineLength = 100,
       organizeImports = true,
       configuration = {
+        ["indent-width"] = 2,
         lint = {
           unfixable = { "F401" },
           ["extend-select"] = { "TID251" },
@@ -49,8 +50,8 @@ vim.lsp.config("ruff", {
           },
         },
         format = {
-          backend = "uv",
-          ["quote-styple"] = "double",
+          -- backend = "uv",
+          ["quote-style"] = "double",
         },
       },
     },
@@ -59,14 +60,3 @@ vim.lsp.config("ruff", {
 
 vim.lsp.enable("pyright")
 vim.lsp.enable("ruff")
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("python_ft", { clear = true }),
-  pattern = "python",
-  callback = function()
-    vim.opt_local.tabstop = 2
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.expandtab = true
-  end,
-})

@@ -1,13 +1,15 @@
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
+local opts = { silent = true }
 
 -- tab/shift: like browswer tabs
-map("n", "<Tab>", ":bnext<cr>", { desc = "next buffer" })
-map("n", "<S-Tab>", ":bprevious<cr>", { desc = "previous buffer" })
+map("n", "<Tab>", "<cmd>bnext<cr>", { desc = "next buffer" })
+map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "previous buffer" })
 
 -- alternative buffer switching
-map("n", "<leader>bn", ":bnext<cr>", { desc = "next buffer" })
-map("n", "<leader>bp", ":bprevious<cr>", { desc = "previous buffer" })
+map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "next buffer" })
+map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+map("n", "<leader>bd", function() require("mini.bufremove").delete(0, false) end, {desc = "close buffer" })
+map("n", "<leader>bD", function() require("mini.bufremove").delete(0, true) end, {desc = "close buffer (discard changes)" })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "previous buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "next buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "previous buffer" })
@@ -56,22 +58,22 @@ map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 -- alternative line movement
 map("v", "J", ":move '>+1<cr>gv=gv", { desc = "move block down" })
 map("v", "K", ":move '<-2<cr>gv=gv", { desc = "move block up" })
-map("n", "<A-Down>", ":m .+1<cr>", opts)
-map("n", "<A-Up>", ":m .-2<cr>", opts)
-map("i", "<A-Down>", "<esc>:m .+1<cr>==gi", opts)
-map("i", "<A-Up>", "<esc>:m .-2<cr>==gi", opts)
-map("v", "<A-Down>", ":m '>+1<cr>gv=gv", opts)
-map("v", "<A-Up>", ":m '<-2<cr>gv=gv", opts)
+map("n", "<A-Down>", "<cmd>m .+1<cr>==", {silent = true, desc = "move line down"})
+map("n", "<A-Up>", "<cmd>m .-2<cr>==", {silent = true, desc = "move line up"})
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", {silent = true, desc = "move line down"})
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", {silent = true, desc = "move line up"})
+map("v", "<A-Down>", ":m '>+1<cr>gv=gv", {silent = true, desc = "move block down"})
+map("v", "<A-Up>", ":m '<-2<cr>gv=gv", {silent = true, desc = "move block up"})
 
--- better line start/end 
+-- better line start/end
 map("n", "gl", "$", { desc = "go to end of line" })
 map("n", "gh", "^", { desc = "go to start of line" })
 map("n", "<A-h>", "^", { desc = "go to start of line", silent = true })
 map("n", "<A-l>", "$", { desc = "go to end of line", silent = true })
 
 -- select all content
-map("n", "==", "gg<S-v>G")
-map("n", "<A-a>", "ggVG", { noremap = true, silent = true, desc = "select all" })
+-- map("n", "==", "gg<S-v>G")
+map("n", "<A-a>", "ggVG", { silent = true, desc = "select all" })
 
 -- clear search highlighting
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
@@ -93,7 +95,7 @@ map("v", ">", ">gv")
 map("v", "p", '"_dP', opts)
 
 -- copy whole file to clipboard
-map("n", "<C-c>", ":%y+<CR>", opts)
+map("n", "<C-c>", "<cmd>%y+<cr>", {silent = true, desc = "copy file to clipboard"})
 
 -- smart undo break-points
 map("i", ",", ",<c-g>u")

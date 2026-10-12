@@ -2,7 +2,6 @@ local map = function(mode, lhs, rhs, desc)
   vim.keymap.set(mode, lhs, rhs, {
     buffer = true,
     silent = true,
-    noremap = true,
     desc = desc,
   })
 end
@@ -26,9 +25,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
       map("n", "gd", vim.lsp.buf.definition, "goto definition")
       map("n", "gD", vim.lsp.buf.declaration, "goto declaration")
-      map("n", "gr", vim.lsp.buf.references, "goto references")
-      map("n", "gi", vim.lsp.buf.implementation, "goto implementation")
-      map("n", "gt", vim.lsp.buf.type_definition, "goto type definition")
+--      map("n", "gr", vim.lsp.buf.references, "goto references")
+--      map("n", "gi", vim.lsp.buf.implementation, "goto implementation")
+--      map("n", "gt", vim.lsp.buf.type_definition, "goto type definition")
       map("n", "K", vim.lsp.buf.hover, "hover docs")
       map("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
       map("n", "<leader>cr", vim.lsp.buf.rename, "rename")
@@ -40,12 +39,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end, "format selection")
     end
 
-    if client.name == "pyright" then
+    if client:supports_method("textDocument/codeAction") then
       map("n", "<leader>co", function()
-        client.request("workspace/executeCommand", {
-          command = "pyright.organizeimports",
-          arguments = { vim.uri_from_bufnr(bufnr) },
-        }, nil, bufnr)
+        vim.lsp.buf.code_action({
+          context = { only = {"source.organizeImports"}, diagnostics = {}},
+          apply = true,
+        })
       end, "organize imports")
     end
 
@@ -93,3 +92,6 @@ require("brokenrobotz.lsp.qml_ls")
 require("brokenrobotz.lsp.rust_ls")
 require("brokenrobotz.lsp.python_ls")
 require("brokenrobotz.lsp.go_ls")
+require("brokenrobotz.lsp.vts_ls")
+require("brokenrobotz.lsp.cpp_ls")
+require("brokenrobotz.lsp.java_ls")

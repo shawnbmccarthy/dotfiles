@@ -3,7 +3,6 @@ local transparent = true
 
 require("catppuccin").setup({
   flavour = "macchiato",
-  priority = 1000,
   background = {
     light = "latte",
     dark = "mocha",
